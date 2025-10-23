@@ -28,7 +28,7 @@ const Contact = () => {
                 </div>
                 <div className="contact-item">
                   <FaMapMarkerAlt color="#2196f3" size={20} style={{ marginRight: "10px" }} />
-                  <span>Tu Ciudad, País</span>
+                  <span>Tungurahua- Pelileo - Ecuador😀</span>
                 </div>
               </div>
 
