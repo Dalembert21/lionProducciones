@@ -10,10 +10,16 @@ function Gallery() {
   const closeModal = () => setModalData(null);
 
   // 🔒 Bloquear scroll cuando el modal está abierto
-  useEffect(() => {
-    document.body.style.overflow = modalData ? "hidden" : "auto";
-    return () => (document.body.style.overflow = "auto");
-  }, [modalData]);
+useEffect(() => {
+  if (modalData) {
+    document.body.classList.add("modal-open"); // bloquear scroll
+  } else {
+    document.body.classList.remove("modal-open"); // habilitar scroll
+  }
+
+  // Limpieza por si el componente se desmonta
+  return () => document.body.classList.remove("modal-open");
+}, [modalData]);
 
   const images = [
     { src: naturalezaImg, category: "retratos", alt: "Retrato profesional" },

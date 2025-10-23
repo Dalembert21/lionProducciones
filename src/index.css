@@ -1106,6 +1106,11 @@ body::before {
     backdrop-filter: blur(10px);
     animation: modalFadeIn 0.3s ease-out;
 }
+body.modal-open {
+  overflow: hidden;
+  position: fixed; /* bloquea también el “bounce” en iOS */
+  width: 100%;
+}
 
 .modal-content {
     position: relative;
