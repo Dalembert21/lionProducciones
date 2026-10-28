@@ -1,5 +1,6 @@
 import React from "react";
-import lionImg from "../../assets/lion.png"; // ajusta la ruta si es necesario
+import lionImg from "../../assets/lion.png";
+import "./About.css";
 
 function About() {
   return (
@@ -7,22 +8,24 @@ function About() {
       <div className="container">
         <div className="about-content">
           <div className="about-text">
-            <h2 className="section-title">Sobre Nosotros</h2>
+            <h2 className="section-title">Sobre Mí</h2>
 
-            <p className="about-description">
-              Soy un fotógrafo apasionado con más de 5 años de experiencia capturando momentos únicos e irrepetibles. 
-              Mi especialidad se centra en retratos, bodas y eventos especiales, donde busco contar historias a través de la lente.
+            <p className="about-lead">
+              Soy Dalembert Bravo, fotógrafo profesional y creador detrás de Lion Producciones.
             </p>
 
             <p className="about-description">
-              Cada sesión es una oportunidad para crear arte y preservar recuerdos que durarán toda la vida. 
-              Mi enfoque es natural y espontáneo, capturando la esencia real de cada momento.
+              Con más de 5 años de trayectoria creando historias visuales conmovedoras a través de la lente, creo firmemente que cada fotografía debe inmortalizar una emoción auténtica. Me especializo en retratos de autor, cobertura integral de bodas y producción de eventos de alto nivel.
+            </p>
+
+            <p className="about-description">
+              Combino técnica fotográfica avanzada, iluminación de estudio y equipos de última generación para entregar resultados con estética cinematográfica y acabados impecables.
             </p>
 
             <div className="stats">
               <div className="stat">
                 <h3>500+</h3>
-                <p>Fotos Realizadas</p>
+                <p>Sesiones Realizadas</p>
               </div>
               <div className="stat">
                 <h3>100+</h3>
@@ -35,7 +38,7 @@ function About() {
             </div>
           </div>
 
-          <div className="about-image">
+          <div className="about-image-wrapper">
             <img
               src={lionImg}
               alt="Fotógrafo profesional de Lion Producciones"
