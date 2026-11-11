@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { FaSearchPlus } from "react-icons/fa";
 import naturalezaImg from "../../assets/naturaleza.jpg";
 import dronImg from "../../assets/dron.jpg";
-import lionImg from "../../assets/lion.png";
-import lion1Img from "../../assets/lion1.png";
+import culturaTradicionImg from "../../assets/culturaTradicion.png";
+import eleccionReinaImg from "../../assets/eleccionReina.png";
+import motoVelocidadImg from "../../assets/motoVelocidad.png";
+import tradicionImg from "../../assets/tradicion.png";
 import "./Gallery.css";
 
 function Gallery() {
@@ -25,12 +27,12 @@ function Gallery() {
   }, [modalData]);
 
   const images = [
-    { src: dronImg, category: "eventos", title: "Tomas Aéreas & Eventos", alt: "Fotografía aérea con dron" },
-    { src: naturalezaImg, category: "naturaleza", title: "Naturaleza & Paisajes", alt: "Fotografía de naturaleza" },
-    { src: lionImg, category: "retratos", title: "Sesión Retrato de Estudio", alt: "Retrato profesional de estudio" },
-    { src: lion1Img, category: "bodas", title: "Momentos Inolvidables", alt: "Fotografía de bodas y ceremonias" },
-    { src: dronImg, category: "bodas", title: "Celebración al Aire Libre", alt: "Boda al aire libre" },
-    { src: naturalezaImg, category: "retratos", title: "Retrato Artístico Exterior", alt: "Retrato artístico" },
+    { src: eleccionReinaImg, category: "eventos", title: "Elección Reina de Pelileo", alt: "Gala de Elección Reina de Pelileo" },
+    { src: culturaTradicionImg, category: "eventos", title: "Cultura y Tradición", alt: "Presentación artística cultural y tradicional" },
+    { src: motoVelocidadImg, category: "eventos", title: "Motovelocidad en Acción", alt: "Competencia de motovelocidad" },
+    { src: tradicionImg, category: "eventos", title: "Desfile y Tradición", alt: "Comparsa y desfile tradicional" },
+    { src: naturalezaImg, category: "naturaleza", title: "Atardecer en los Andes", alt: "Fotografía de paisaje y atardecer" },
+    { src: dronImg, category: "naturaleza", title: "Tomas Aéreas con Dron", alt: "Producción aérea con dron en entorno natural" },
   ];
 
   const filteredImages =
@@ -40,10 +42,8 @@ function Gallery() {
 
   const filterNames = {
     all: "Todas",
-    retratos: "Retratos",
-    bodas: "Bodas",
     eventos: "Eventos",
-    naturaleza: "Naturaleza"
+    naturaleza: "Naturaleza",
   };
 
   return (
@@ -59,7 +59,7 @@ function Gallery() {
 
           {/* Filtros */}
           <div className="gallery-filters">
-            {["all", "retratos", "bodas", "eventos", "naturaleza"].map((filter) => (
+            {["all", "eventos", "naturaleza"].map((filter) => (
               <button
                 key={filter}
                 className={`filter-btn ${selectedFilter === filter ? "active" : ""}`}

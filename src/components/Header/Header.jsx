@@ -23,7 +23,7 @@ function Header() {
             <a href="#galeria" className="nav-link">Galería</a>
           </li>
           <li className="nav-item">
-            <a href="#sobre-mi" className="nav-link">Sobre Mí</a>
+            <a href="#sobre-mi" className="nav-link">Sobre Nosotros</a>
           </li>
           <li className="nav-item">
             <a href="#contacto" className="nav-link">Contacto</a>

@@ -8,18 +8,18 @@ function About() {
       <div className="container">
         <div className="about-content">
           <div className="about-text">
-            <h2 className="section-title">Sobre Mí</h2>
+            <h2 className="section-title">Sobre Nosotros</h2>
 
             <p className="about-lead">
-              Soy Dalembert Bravo, fotógrafo profesional y creador detrás de Lion Producciones.
+              Lion Producciones: más de 5 años creando historias visuales conmovedoras a través de la lente.
             </p>
 
             <p className="about-description">
-              Con más de 5 años de trayectoria creando historias visuales conmovedoras a través de la lente, creo firmemente que cada fotografía debe inmortalizar una emoción auténtica. Me especializo en retratos de autor, cobertura integral de bodas y producción de eventos de alto nivel.
+              En Lion Producciones creemos firmemente que cada fotografía debe inmortalizar una emoción auténtica. Nos especializamos en cobertura integral de eventos culturales, sociales y deportivos, así como fotografía de naturaleza y paisajes.
             </p>
 
             <p className="about-description">
-              Combino técnica fotográfica avanzada, iluminación de estudio y equipos de última generación para entregar resultados con estética cinematográfica y acabados impecables.
+              Combinamos técnica fotográfica avanzada, iluminación de estudio y equipos de última generación para entregar resultados con estética cinematográfica y acabados impecables.
             </p>
 
             <div className="stats">

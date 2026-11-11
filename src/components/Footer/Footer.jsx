@@ -36,7 +36,7 @@ const Contact = () => {
               <h3>Hablemos de tu próximo proyecto</h3>
               <p className="contact-intro">
                 En Lion Producciones estamos listos para asesorarte y plasmar momentos inolvidables. 
-                Cuéntanos tu idea para cotizar coberturas de bodas, eventos o sesiones personalizadas.
+                Cuéntanos tu idea para cotizar coberturas de eventos, producción audiovisual o tomas aéreas.
               </p>
 
               <div className="contact-details">
@@ -118,7 +118,7 @@ const Contact = () => {
                     type="text"
                     id="asunto"
                     name="asunto"
-                    placeholder="Ej. Cobertura de Boda / Retratos"
+                    placeholder="Ej. Cobertura de Evento / Producción con Dron"
                     value={formData.asunto}
                     onChange={handleChange}
                     required
@@ -151,10 +151,13 @@ const Contact = () => {
       <footer className="footer">
         <div className="container footer-content">
           <p>
-            &copy; 2026 <span className="footer-brand">Lion Producciones</span> - Dalembert Bravo. Todos los derechos reservados.
+            &copy; 2026 <span className="footer-brand">Lion Producciones</span>. Todos los derechos reservados.
           </p>
           <p style={{ fontSize: "0.85rem", color: "#94a3b8" }}>
             Fotografía profesional, producción cinematográfica y cobertura de eventos exclusivos.
+          </p>
+          <p style={{ fontSize: "0.8rem", color: "#64748b", marginTop: "0.25rem" }}>
+            Desarrollado por <span className="footer-brand">DalpaSoft</span>
           </p>
         </div>
       </footer>
