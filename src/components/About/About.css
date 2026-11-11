@@ -83,34 +83,25 @@
 /* Imagen con marco elegante */
 .about-image-wrapper {
   position: relative;
-  max-width: 26rem;
-  margin: 0 auto;
-}
-
-.about-image-wrapper::before {
-  content: '';
-  position: absolute;
-  top: -12px;
-  right: -12px;
   width: 100%;
-  height: 100%;
-  border: 2px solid var(--primary);
-  border-radius: var(--radius-lg);
-  opacity: 0.45;
-  z-index: 1;
-  pointer-events: none;
+  max-width: 25rem;
+  margin: 0 auto;
+  padding: 0.65rem;
+  background: var(--bg-light);
+  border: 1.5px solid var(--border-primary);
+  border-radius: calc(var(--radius-lg) + 4px);
+  box-shadow: var(--shadow-lg);
   transition: var(--transition);
 }
 
-.about-image-wrapper:hover::before {
-  top: -8px;
-  right: -8px;
-  opacity: 0.7;
+.about-image-wrapper:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.14);
 }
 
 .about-photo {
   position: relative;
-  z-index: 2;
   width: 100%;
   aspect-ratio: 1 / 1;
   height: auto;
@@ -119,7 +110,6 @@
   background-color: #ffffff;
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
   display: block;
 }
 
@@ -139,13 +129,28 @@
   }
 
   .about-image-wrapper {
-    max-width: 24rem;
+    max-width: 22rem;
     margin: 0 auto;
   }
 
   .stats {
     grid-template-columns: 1fr;
     gap: 1rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  .about {
+    padding: 4.25rem 0;
+  }
+
+  .about-image-wrapper {
+    max-width: 17.5rem;
+    padding: 0.5rem;
+  }
+
+  .about-photo {
+    padding: 0.9rem;
   }
 }
 
