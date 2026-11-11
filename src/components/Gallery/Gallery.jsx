@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaSearchPlus } from "react-icons/fa";
 import naturalezaImg from "../../assets/naturaleza.jpg";
 import dronImg from "../../assets/dron.jpg";
@@ -8,12 +8,49 @@ import motoVelocidadImg from "../../assets/motoVelocidad.png";
 import tradicionImg from "../../assets/tradicion.png";
 import "./Gallery.css";
 
+const GALLERY_IMAGES = [
+  { id: "reina-pelileo", src: eleccionReinaImg, category: "eventos", title: "Elección Reina de Pelileo", alt: "Gala de Elección Reina de Pelileo" },
+  { id: "cultura-tradicion", src: culturaTradicionImg, category: "eventos", title: "Cultura y Tradición", alt: "Presentación artística cultural y tradicional" },
+  { id: "moto-velocidad", src: motoVelocidadImg, category: "eventos", title: "Motovelocidad en Acción", alt: "Competencia de motovelocidad" },
+  { id: "desfile-tradicion", src: tradicionImg, category: "eventos", title: "Desfile y Tradición", alt: "Comparsa y desfile tradicional" },
+  { id: "atardecer-andes", src: naturalezaImg, category: "naturaleza", title: "Atardecer en los Andes", alt: "Fotografía de paisaje y atardecer" },
+  { id: "tomas-dron", src: dronImg, category: "naturaleza", title: "Tomas Aéreas con Dron", alt: "Producción aérea con dron en entorno natural" },
+];
+
+const FILTER_NAMES = {
+  all: "Todas",
+  eventos: "Eventos",
+  naturaleza: "Naturaleza",
+};
+
+const FILTER_KEYS = ["all", "eventos", "naturaleza"];
+
 function Gallery() {
   const [modalData, setModalData] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("all");
+  const [renderedFilter, setRenderedFilter] = useState("all");
+  const [isReloading, setIsReloading] = useState(false);
+  const switchTimerRef = useRef(null);
 
   const openModal = (src, alt) => setModalData({ src, alt });
   const closeModal = () => setModalData(null);
+
+  // Precargar y decodificar imágenes para evitar tirones al cambiar de filtro
+  useEffect(() => {
+    GALLERY_IMAGES.forEach((item) => {
+      const preload = new Image();
+      preload.src = item.src;
+      if (typeof preload.decode === "function") {
+        preload.decode().catch(() => {});
+      }
+    });
+
+    return () => {
+      if (switchTimerRef.current) {
+        clearTimeout(switchTimerRef.current);
+      }
+    };
+  }, []);
 
   // Bloquear scroll cuando el modal está abierto
   useEffect(() => {
@@ -26,25 +63,26 @@ function Gallery() {
     return () => document.body.classList.remove("modal-open");
   }, [modalData]);
 
-  const images = [
-    { src: eleccionReinaImg, category: "eventos", title: "Elección Reina de Pelileo", alt: "Gala de Elección Reina de Pelileo" },
-    { src: culturaTradicionImg, category: "eventos", title: "Cultura y Tradición", alt: "Presentación artística cultural y tradicional" },
-    { src: motoVelocidadImg, category: "eventos", title: "Motovelocidad en Acción", alt: "Competencia de motovelocidad" },
-    { src: tradicionImg, category: "eventos", title: "Desfile y Tradición", alt: "Comparsa y desfile tradicional" },
-    { src: naturalezaImg, category: "naturaleza", title: "Atardecer en los Andes", alt: "Fotografía de paisaje y atardecer" },
-    { src: dronImg, category: "naturaleza", title: "Tomas Aéreas con Dron", alt: "Producción aérea con dron en entorno natural" },
-  ];
+  const handleFilterChange = (nextFilter) => {
+    if (nextFilter === selectedFilter) return;
+
+    setSelectedFilter(nextFilter);
+    setIsReloading(true);
+
+    if (switchTimerRef.current) {
+      clearTimeout(switchTimerRef.current);
+    }
+
+    switchTimerRef.current = setTimeout(() => {
+      setRenderedFilter(nextFilter);
+      setIsReloading(false);
+    }, 220);
+  };
 
   const filteredImages =
-    selectedFilter === "all"
-      ? images
-      : images.filter((img) => img.category === selectedFilter);
-
-  const filterNames = {
-    all: "Todas",
-    eventos: "Eventos",
-    naturaleza: "Naturaleza",
-  };
+    renderedFilter === "all"
+      ? GALLERY_IMAGES
+      : GALLERY_IMAGES.filter((img) => img.category === renderedFilter);
 
   return (
     <>
@@ -58,38 +96,57 @@ function Gallery() {
           </div>
 
           {/* Filtros */}
-          <div className="gallery-filters">
-            {["all", "eventos", "naturaleza"].map((filter) => (
+          <div className="gallery-filters" role="tablist" aria-label="Filtrar portafolio por categoría">
+            {FILTER_KEYS.map((filter) => (
               <button
                 key={filter}
+                type="button"
+                role="tab"
+                aria-selected={selectedFilter === filter}
                 className={`filter-btn ${selectedFilter === filter ? "active" : ""}`}
-                onClick={() => setSelectedFilter(filter)}
+                onClick={() => handleFilterChange(filter)}
               >
-                {filterNames[filter]}
+                {FILTER_NAMES[filter]}
               </button>
             ))}
           </div>
 
-          {/* Grid de imágenes */}
-          <div className="gallery-grid">
-            {filteredImages.map((img, index) => (
-              <div
-                key={index}
-                className="gallery-item"
-                onClick={() => openModal(img.src, img.title)}
-              >
-                <img src={img.src} alt={img.alt} className="gallery-image" loading="lazy" />
-                <div className="gallery-overlay">
-                  <div className="gallery-overlay-icon" aria-hidden="true">
-                    <FaSearchPlus size={16} />
-                  </div>
-                  <div className="gallery-overlay-info">
-                    <span>{filterNames[img.category]}</span>
-                    <h3>{img.title}</h3>
+          {/* Barra sutil de recarga al cambiar categoría */}
+          <div className={`gallery-loader ${isReloading ? "active" : ""}`} aria-hidden="true">
+            <span className="gallery-loader-bar" />
+          </div>
+
+          {/* Escenario y Grid de imágenes */}
+          <div className="gallery-stage">
+            <div
+              key={renderedFilter}
+              className={`gallery-grid ${isReloading ? "is-reloading" : "is-ready"}`}
+            >
+              {filteredImages.map((img, index) => (
+                <div
+                  key={`${renderedFilter}-${img.id}`}
+                  className="gallery-item"
+                  style={{ animationDelay: `${index * 55}ms` }}
+                  onClick={() => openModal(img.src, img.title)}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="gallery-image"
+                    decoding="async"
+                  />
+                  <div className="gallery-overlay">
+                    <div className="gallery-overlay-icon" aria-hidden="true">
+                      <FaSearchPlus size={16} />
+                    </div>
+                    <div className="gallery-overlay-info">
+                      <span>{FILTER_NAMES[img.category]}</span>
+                      <h3>{img.title}</h3>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
