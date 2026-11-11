@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { FaSearchPlus } from "react-icons/fa";
 import naturalezaImg from "../../assets/naturaleza.jpg";
 import dronImg from "../../assets/dron.jpg";
@@ -52,15 +53,29 @@ function Gallery() {
     };
   }, []);
 
-  // Bloquear scroll cuando el modal está abierto
+  // Bloquear scroll cuando el modal está abierto y permitir cerrar con Escape
   useEffect(() => {
-    if (modalData) {
-      document.body.classList.add("modal-open");
-    } else {
+    if (!modalData) {
+      document.documentElement.classList.remove("modal-open");
       document.body.classList.remove("modal-open");
+      return;
     }
 
-    return () => document.body.classList.remove("modal-open");
+    document.documentElement.classList.add("modal-open");
+    document.body.classList.add("modal-open");
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.documentElement.classList.remove("modal-open");
+      document.body.classList.remove("modal-open");
+    };
   }, [modalData]);
 
   const handleFilterChange = (nextFilter) => {
@@ -151,24 +166,26 @@ function Gallery() {
         </div>
       </section>
 
-      {/* Modal Lightbox */}
-      {modalData && (
-        <div className="modal show" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="close" onClick={closeModal} aria-label="Cerrar vista previa">
-              &times;
-            </button>
-            <img
-              src={modalData.src}
-              alt={modalData.alt}
-              className="modal-image"
-            />
-            <div className="modal-caption">
-              <h3>{modalData.alt}</h3>
+      {/* Modal Lightbox (Portal en body para evitar choques con stacking contexts) */}
+      {modalData &&
+        createPortal(
+          <div className="modal show" onClick={closeModal} role="dialog" aria-modal="true" aria-label={modalData.alt}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <button type="button" className="close" onClick={closeModal} aria-label="Cerrar vista previa">
+                &times;
+              </button>
+              <img
+                src={modalData.src}
+                alt={modalData.alt}
+                className="modal-image"
+              />
+              <div className="modal-caption">
+                <h3>{modalData.alt}</h3>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </>
   );
 }

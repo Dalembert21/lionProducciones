@@ -123,8 +123,18 @@
   }
 
   .hero-main-image {
-    max-width: 16rem;
-    height: 18rem;
+    max-width: 15rem;
+    height: auto;
+  }
+}
+
+@media (max-width: 30rem) {
+  .hero {
+    padding: 5.75rem 0 3.25rem;
+  }
+
+  .hero-main-image {
+    max-width: 13.5rem;
   }
 }
 
