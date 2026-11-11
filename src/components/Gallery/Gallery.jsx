@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { FaSearchPlus } from "react-icons/fa";
 import naturalezaImg from "../../assets/naturaleza.jpg";
+import naturaleza2Img from "../../assets/naturaleza 2.png";
+import naturaleza3Img from "../../assets/naturaleza 3.png";
 import dronImg from "../../assets/dron.jpg";
 import culturaTradicionImg from "../../assets/culturaTradicion.png";
 import eleccionReinaImg from "../../assets/eleccionReina.png";
@@ -15,6 +17,8 @@ const GALLERY_IMAGES = [
   { id: "moto-velocidad", src: motoVelocidadImg, category: "eventos", title: "Motovelocidad en Acción", alt: "Competencia de motovelocidad" },
   { id: "desfile-tradicion", src: tradicionImg, category: "eventos", title: "Desfile y Tradición", alt: "Comparsa y desfile tradicional" },
   { id: "atardecer-andes", src: naturalezaImg, category: "naturaleza", title: "Atardecer en los Andes", alt: "Fotografía de paisaje y atardecer" },
+  { id: "cielo-dorado", src: naturaleza2Img, category: "naturaleza", title: "Cielo Dorado en la Montaña", alt: "Atardecer dorado con silueta de árboles en la montaña" },
+  { id: "panoramica-andina", src: naturaleza3Img, category: "naturaleza", title: "Vista Panorámica Andina", alt: "Toma aérea de valle andino con volcán al fondo" },
   { id: "tomas-dron", src: dronImg, category: "naturaleza", title: "Tomas Aéreas con Dron", alt: "Producción aérea con dron en entorno natural" },
 ];
 
